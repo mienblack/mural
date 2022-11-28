@@ -1,0 +1,2 @@
+# mural
+ Mural de avisos
