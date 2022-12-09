@@ -1,9 +1,13 @@
+const PORT = process.env.PORT || 3000
+const URL_update = `http://localhost:${PORT}/api/all`
+const URL_new = `http://localhost:${PORT}/api/new`
+
 document.addEventListener('DOMContentLoaded', () => {
     updatePosts()
 })
 
 function updatePosts() {
-    fetch("http://localhost:3000/api/all").then(res => {
+    fetch(URL_update).then(res => {
         return res.json()
     }).then(json => {
         console.log(json)
@@ -38,7 +42,7 @@ function newPost() {
         body: JSON.stringify(post)
     }
 
-    fetch("http://localhost:3000/api/new", options).then(res => {
+    fetch(URL_new, options).then(res => {
         updatePosts()
         document.getElementById("title").value = ""
         document.getElementById("desc").value = ""
