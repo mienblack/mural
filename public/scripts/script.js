@@ -1,22 +1,20 @@
-const PORT = process.env.PORT || 3000
-const URL_update = `http://localhost:${PORT}/api/all`
-const URL_new = `http://localhost:${PORT}/api/new`
+const port = 3000
+const URL_update = `http://localhost:${port}/api/all`
+const URL_new = `http://localhost:${port}/api/new`
 
 document.addEventListener('DOMContentLoaded', () => {
     updatePosts()
 })
 
 function updatePosts() {
-    fetch(URL_update).then(res => {
-        return res.json()
-    }).then(json => {
-        console.log(json)
+    fetch(URL_update)
+        .then(res => res.json())
+        .then(json => {
+            let postElements = ''
 
-        let postElements = ''
-
-        let posts = JSON.parse(json)
-        posts.forEach(post => {
-            let postElement = `<div id="${post.id}" class="card">
+            let posts = JSON.parse(json)
+            posts.forEach(post => {
+                let postElement = `<div id="${post.id}" class="card">
             <div class="card-header">
                 <h5 class="card-title">${post.title}</h5>
             </div>
@@ -24,10 +22,11 @@ function updatePosts() {
                 <div class="card-text">${post.description}</div>
             </div>
         </div>`
-            postElements += postElement
+                postElements += postElement
+            })
+            document.getElementById("posts").innerHTML = postElements
         })
-        document.getElementById("posts").innerHTML = postElements
-    })
+        .catch(err => console.log(err))
 }
 
 function newPost() {
